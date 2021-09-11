@@ -1,17 +1,15 @@
 import styled from 'styled-components';
-import bg from '../images/model-s.jpg';
 import Section from './Section';
+import { selectProducts } from '../features/product/productSlice';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
+  const products = useSelector(selectProducts);
   return (
     <Container>
-      <Section
-        title="Model S"
-        desc="Order online for Touchless Delivery"
-        bg={bg}
-        leftBtnText="custome order"
-        rightBtnText="EXISTING INVENTORY"
-      ></Section>
+      {products.map((item, index) => {
+        return <Section key={index} {...item} />;
+      })}
     </Container>
   );
 };

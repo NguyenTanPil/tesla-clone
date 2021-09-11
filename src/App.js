@@ -1,16 +1,21 @@
 import React from 'react';
-// import logo from './logo.svg';
-// import { Counter } from './features/counter/Counter';
 import './App.css';
-// import Header from './components/Header';
+import Header from './components/Header';
 import Home from './components/Home';
+import NotFound from './components/NotFound';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      {/* <Header /> */}
-      <Home />
-    </div>
+    <Router>
+      <div className="App">
+        <Header />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

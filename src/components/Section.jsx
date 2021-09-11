@@ -1,28 +1,37 @@
 import styled, { keyframes } from 'styled-components';
 import downArrow from '../images/down-arrow.svg';
 
-const Section = ({ title, desc, bg, leftBtnText, rightBtnText }) => {
+export const Section = ({
+  title,
+  desc,
+  background,
+  leftBtnText,
+  rightBtnText,
+  isIcon,
+}) => {
   return (
-    <Wrap bg={bg}>
-      <ItemText>
-        <h2>{title}</h2>
-        <p>{desc}</p>
-      </ItemText>
+    <Wrap background={background}>
+      <WrapItem>
+        <ItemText>
+          <h2>{title}</h2>
+          {desc && <p>{desc}</p>}
+        </ItemText>
+      </WrapItem>
 
       <ButtonGroup>
-        {leftBtnText && <Button theme="dark">{leftBtnText}</Button>}
+        {leftBtnText && <Button type="dark">{leftBtnText}</Button>}
         {rightBtnText && <Button>{rightBtnText}</Button>}
       </ButtonGroup>
 
-      <DownArrow src={downArrow} />
+      {isIcon && <DownArrow src={downArrow} />}
     </Wrap>
   );
 };
 
 export default Section;
 
-const Wrap = styled.div`
-  background-image: url(${(props) => props.bg});
+export const Wrap = styled.div`
+  background-image: url(${(props) => props.background});
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -34,8 +43,11 @@ const Wrap = styled.div`
   width: 100%;
 `;
 
-const ItemText = styled.div`
+export const WrapItem = styled.div`
   flex-grow: 1;
+`;
+
+export const ItemText = styled.div`
   padding-top: 15vh;
   text-align: center;
   text-transform: capitalize;
@@ -51,15 +63,16 @@ const ItemText = styled.div`
   }
 `;
 
-const ButtonGroup = styled.div`
+export const ButtonGroup = styled.div`
   display: flex;
   justify-content: center;
+  margin-bottom: 2rem;
 
   button:last-child {
     margin-right: 0;
   }
 
-  @media (max-width: 768px) {
+  @media screen and (max-width: 768px) {
     flex-direction: column;
 
     button {
@@ -68,12 +81,12 @@ const ButtonGroup = styled.div`
   }
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
   background-color: ${(props) =>
-    props.theme === 'dark' ? 'rgba(23, 26, 32, 0.8)' : '#fff'};
+    props.type === 'dark' ? 'rgba(23, 26, 32, 0.8)' : '#fff'};
   border: none;
   color: ${(props) =>
-    props.theme === 'dark' ? '#fff' : 'rgba(23, 26, 32, 0.8)'};
+    props.type === 'dark' ? '#fff' : 'rgba(23, 26, 32, 0.8)'};
   cursor: pointer;
   border-radius: 10rem;
   display: flex;
@@ -88,7 +101,7 @@ const Button = styled.button`
   text-transform: uppercase;
   width: 25.6rem;
 `;
-const animaDown = keyframes`
+export const animaDown = keyframes`
   0%, 20%, 50%, 80%, 100% {
     transform: translateY(0);
   }
@@ -100,11 +113,10 @@ const animaDown = keyframes`
   }
 `;
 
-const DownArrow = styled.img`
+export const DownArrow = styled.img`
   animation: ${animaDown} 2s infinite;
   cursor: pointer;
   height: 4rem;
   margin-bottom: 4.5rem;
-  margin-top: 2rem;
   transition: transform 0.35s linear;
 `;
